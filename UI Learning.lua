@@ -2,6 +2,7 @@ local pluginName = select(1, ...)
 local componentsName = select(2, ...)
 local signalTable = select(3, ...)
 local myHandler = select(4, ...)
+--test
 function Main()
     local baseInput = GetFocusDisplay().ScreenOverlay:Append('BaseInput')
     baseInput.Name = 'CDY'
