@@ -25,7 +25,7 @@ function Main()
     titleBar.Texture = 'corner2'
 
     local titleBarIcon = titleBar:Append('TitleButton')
-    titleBarIcon.Text = 'Installed'
+    titleBarIcon.Text = 'Titolo della messagebox'
     titleBarIcon.Texture = 'corner1'
     titleBarIcon.Anchors = '0,0'
     titleBarIcon.Icon = 'star'
@@ -46,7 +46,7 @@ function Main()
     dlgFrame[1][2].size = 60
     --da qua credo non vada un cazzo
     local subTitle = dlgFrame:Append('UIObject')
-    subTitle.Text = 'This is a fucking' 
+    subTitle.Text = 'Sottotitolo della messagebox'
     subTitle.ContentDriven = 'Yes'
     subTitle.ConttentWidht = 'No'
     subTitle.textAutoAdjust = 'Yes'
@@ -54,8 +54,7 @@ function Main()
     subTitle.Padding = '20, 15'
     subTitle.Font = 'Medium20'
     subTitle.HasHover = 'No'
-    subTitle.BackColor = root{}.ColorTheme.ColorGroups.Global.Transparent
-
+    subTitle.BackColor = root{}.ColorTheme.ColorGroups.Global.InvalidGridPosition
     local buttonGrid = dlgFrame:Append('UILayoutGrid')
     buttonGrid.Columns = 1
     buttonGrid.Rows = 1
