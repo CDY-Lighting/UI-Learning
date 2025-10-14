@@ -43,7 +43,8 @@ function Main()
     dlgFrame[1][1].size = 60
     dlgFrame[1][2].SizePolicy = 'Fixed'
     dlgFrame[1][2].size = 60
-
+    --da quì non va un cazzo
+    
     local subTitle = dlgFrame:Append('UIObject')
     subTitle.Text = 'This is a fucking' 
     subTitle.ContentDriven = 'Yes'
