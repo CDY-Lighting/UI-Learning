@@ -55,10 +55,6 @@ function Main()
     subTitle.Font = 'Medium20'
     subTitle.HasHover = 'No'
     subTitle.BackColor = root{}.ColorTheme.ColorGroups.Global.InvalidGridPosition
-    local buttonGrid = dlgFrame:Append('UILayoutGrid')
-    buttonGrid.Columns = 1
-    buttonGrid.Rows = 1
-    buttonGrid.Anchors = '0,1'
 
 end
 return Main
