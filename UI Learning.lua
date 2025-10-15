@@ -1,9 +1,12 @@
 local pluginName = select(1, ...)
 local componentsName = select(2, ...)
 local signalTable = select(3, ...)
-local myHandler = select(4, ...)
+local myHandle = select(4, ...)
 
 function Main()
+
+    -- definisce lo stato attuale della checkbox
+    local CheckBoxState = 'Unclicked'
 
     -- definisce lo spazio utilizzato dal popup
     local baseInput = GetFocusDisplay().ScreenOverlay:Append('BaseInput')
@@ -86,7 +89,7 @@ function Main()
     checkBox1.Anchors = '0,0'
     checkBox1.TextalignmentH = 'Left'
     checkBox1.State = 0
-    checkBox1.PluginComponent = myHandler
+    checkBox1.PluginComponent = myHandle
     checkBox1.Clicked = 'CheckBoxClicked'
     checkBox1.BackColor = Root{}.ColorTheme.ColorGroups.Global.Transparent75
 
@@ -104,7 +107,7 @@ function Main()
     applyButton.TextalignmentH = 'Centre'
     applyButton.Text = 'Apply'
     applyButton.Font = 'Medium20'
-    applyButton.PluginComponent = myHandler
+    applyButton.PluginComponent = myHandle
     applyButton.Clicked = 'ButtonClicked'
     applyButton.TextColor = Root{}.ColorTheme.ColorGroups.Clock.Pixel
 
@@ -117,8 +120,17 @@ function Main()
         end
     end
 
-    signalTable.ButtonCLicked = function (Caller)
-        GetFocusDisplay().ScreenOverlay:ClearUIChildren()
+        if (checkBox1.State == 0) then
+        checkBox1.State = 'Unclicked'
+    else
+        checkBox1.State = 'Clicked'
     end
+
+    signalTable.ButtonClicked = function (Caller)
+        GetFocusDisplay().ScreenOverlay:ClearUIChildren()
+        Printf(CheckBoxState)
+    end
+
+
 end
 return Main
