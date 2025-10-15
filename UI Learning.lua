@@ -120,10 +120,10 @@ function Main()
         end
     end
 
-        if (checkBox1.State == 0) then
-        checkBox1.State = 'Unclicked'
+    if (checkBox1.State == 0) then
+        CheckBoxState = 'Unclicked'
     else
-        checkBox1.State = 'Clicked'
+        CheckBoxState = 'Clicked'
     end
 
     signalTable.ButtonClicked = function (Caller)
