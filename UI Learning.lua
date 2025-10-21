@@ -97,7 +97,6 @@ function CustomCheckList(Table)
     dlgFrame[1][1].size = 60
     dlgFrame[1][2].SizePolicy = 'Fixed'
     dlgFrame[1][2].size = 60
-
     dlgFrame.BackColor = Root().ColorTheme.ColorGroups.Global.PartlySelectedPreset
 
     -- definisce la dimensione della griglia per le checkbox
@@ -124,7 +123,7 @@ function CustomCheckList(Table)
         Element[index].BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
     end
     
- -- definisce il sottotitolo
+ -- definisce lo spazio del sottotitolo
     local function ActivateSubtitle(index)
       Element[index] = checkBoxGrid:Append('UIObject')
       Element[index].Text = Table.elements[index].name
@@ -138,7 +137,7 @@ function CustomCheckList(Table)
         }
       Element[index].Padding = '20, 15'
       Element[index].Font = 'Medium20'
-       Element[index].HasHover = 'No'
+      Element[index].HasHover = 'No'
       Element[index].BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
     end
 
