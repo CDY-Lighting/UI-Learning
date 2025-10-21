@@ -116,17 +116,17 @@ function CustomCheckList(Table)
          bottom = ElementPositionV[index],
          left = ElementPositionH[index],
          right = ElementPositionH[index],
-    }
-      Element[index].TextalignmentH = 'Left'
-      Element[index].State = CheckBoxState[index]
-      Element[index].PluginComponent = myHandle
-      Element[index].Clicked = 'CheckBoxClicked'
-     Element[index].BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
+        }
+        Element[index].TextalignmentH = 'Left'
+        Element[index].State = CheckboxState[index]
+        Element[index].PluginComponent = myHandle
+        Element[index].Clicked = 'CheckBoxClicked'
+        Element[index].BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
     end
     
     local function ActivateSubtitle(index)
     -- definisce il sottotitolo
-      Element[index] = dlgFrame:Append('UIObject')
+      Element[index] = checkBoxGrid:Append('UIObject')
       Element[index].Text = Table.elements[index].name
       Element[index].ContentDriven = 'Yes'
       Element[index].ContentWidth = 'No'
@@ -135,21 +135,22 @@ function CustomCheckList(Table)
         bottom = ElementPositionV[index],
         left = ElementPositionH[index],
         right = ElementPositionH[index],
-    }
+        }
       Element[index].Padding = '20, 15'
-    Element[index].Font = 'Medium20'
-    Element[index].HasHover = 'No'
-    Element[index].BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
+      Element[index].Font = 'Medium20'
+       Element[index].HasHover = 'No'
+      Element[index].BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
     end
 
     for i = 1,100 do
         if (Table.elements[i] ~= nil) then
             if (table.elements[i].type == 'Checkbox') then
                 if (Table.elements[i].state == 1) then
-                    CheckBoxState[i] = 1
+                    CheckboxState[i] = 1
                 else
-                    CheckBoxState[i] = 0
+                    CheckboxState[i] = 0
                 end
+                ActivateCheckox(i)
             elseif(Table.elements[i].type == 'Subtitle') then
                 ActivateSubtitle(i)
             end
