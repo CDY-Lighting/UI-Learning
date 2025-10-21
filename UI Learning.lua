@@ -3,16 +3,50 @@ local componentsName = select(2, ...)
 local signalTable = select(3, ...)
 local myHandle = select(4, ...)
 
-function Main()
+function CustomCheckList(Table)
+   local DialogColumns = 0
+   local DialogRows = 0
+   local ElementPositionH = {}
+   local ElementPositionV = {}
+   local Element = {}
+   local CheckBoxState = {}
+   local continue = false
 
-    -- definisce lo stato attuale della checkbox
-    local CheckBoxState = 'Unclicked'
+    if (Table.DialogWidth == nil) then
+        DialogWidth = 700
+    else
+        DialogWidth = Table.DialogWidth
+
+for i = 1,100 do
+    if (Table.elements[i] ~= nil) then
+        if (Table.elements[i].type == 'CheckBox') then
+        if (Table.elements[i].PositionH == nil) then
+                ElementPositionH[i] = 0
+        elseif(Table.element[i].PositionH == nil) then
+                ElementPositionH[i] = Table.elements[i].PositionH - 1
+        end
+
+        if (Table.elements[i].PositionV == nil) then
+                ElementPositionV[i] = i - 1
+        else
+                ElementPositionV[i] = Table.elements[i].PositionV - 1
+        end
+        if (DialogColumns < ElementPositionH[i] + 1) then
+            DialogColumns = ElementPositionH[i] + 1
+        end
+        if (DialogRows < ElementPositionV[i] + 1) then
+            DialogRows = ElementPositionV[i] + 1
+        end
+    else
+        break
+    end
+end
 
     -- definisce lo spazio utilizzato dal popup
     local baseInput = GetFocusDisplay().ScreenOverlay:Append('BaseInput')
     baseInput.Name = 'CDY Checkbox'
     baseInput.H = 0
-    baseInput.W = 600
+    baseInput.W = DialogWidth
     baseInput.Columns = 1
     baseInput.Rows = 2
     baseInput[1][1].SizePolicy = 'Fixed'
@@ -35,7 +69,7 @@ function Main()
 
     -- definisce il titolo della messagebox e l'icona a sinistra del titolo
     local titleBarIcon = titleBar:Append('TitleButton')
-    titleBarIcon.Text = 'Titolo della messagebox'
+    titleBarIcon.Text = Table.Title
     titleBarIcon.Texture = 'corner1'
     titleBarIcon.Anchors = '0,0'
     titleBarIcon.Icon = 'star'
@@ -64,35 +98,64 @@ function Main()
     dlgFrame[1][3].size = 60
     dlgFrame.BackColor = Root{}.ColorTheme.ColorGroups.Global.PartlySelectedPreset
 
-    -- definisce il sottotitolo
-    local subTitle = dlgFrame:Append('UIObject')
-    subTitle.Text = 'Sottotitolo della messagebox'
-    subTitle.ContentDriven = 'Yes'
-    subTitle.ContentWidth = 'No'
-    subTitle.Anchors = '0,0'
-    subTitle.Padding = '20, 15'
-    subTitle.Font = 'Medium20'
-    subTitle.HasHover = 'No'
-    subTitle.BackColor = Root{}.ColorTheme.ColorGroups.Global.Transparent75
-
     -- definisce la dimensione della griglia per le checkbox
     local checkBoxGrid = dlgFrame:Append('UILayoutGrid')
-    checkBoxGrid.Columns = 1
-    checkBoxGrid.Rows = 1
+    checkBoxGrid.Columns = DialogColumns
+    checkBoxGrid.Rows = DialogRows
     checkBoxGrid.Anchors = '0,1'
     checkBoxGrid.Margin = '0,5'
     checkBoxGrid.BackColor = Root{}.ColorTheme.ColorGroups.Global.Transparent75
 
-    -- aggiunge e definisce il contenuto della prima checkbox
-    local checkBox1 = checkBoxGrid:Append('CheckBox')
-    checkBox1.Text = 'Checkbox 1'
-    checkBox1.Anchors = '0,0'
-    checkBox1.TextalignmentH = 'Left'
-    checkBox1.State = 0
-    checkBox1.PluginComponent = myHandle
-    checkBox1.Clicked = 'CheckBoxClicked'
-    checkBox1.BackColor = Root{}.ColorTheme.ColorGroups.Global.Transparent75
+    local function ActivateCheckBox(index)
+     Element[index] = checkBoxGrid:Append('CheckBox')
+     Element[index].Text = Table.elemets[index].name
+     Element[index].Anchors = {
+        top = ElementPositionV[index],
+        bottom = ElementPositionV[index],
+        left = ElementPositionH[index],
+        right = ElementPositionH[index],
+    }
+      Element[index].TextalignmentH = 'Left'
+      Element[index].State = CheckBoxState[index]
+      Element[index].PluginComponent = myHandle
+      Element[index].Clicked = 'CheckBoxClicked'
+     Element[index].BackColor = Root{}.ColorTheme.ColorGroups.Global.Transparent75  
+    end
+    
+    local function ActivateSubtitle(index)
+    -- definisce il sottotitolo
+      Element[index] = dlgFrame:Append('UIObject')
+      Element[index].Text = Table.elements[index].name
+      Element[index].ContentDriven = 'Yes'
+      Element[index].ContentWidth = 'No'
+      Element[index].Anchors = {
+        top = ElementPositionV[index],
+        bottom = ElementPositionV[index],
+        left = ElementPositionH[index],
+        right = ElementPositionH[index],
+    }
+      Element[index].Padding = '20, 15'
+    Element[index].Font = 'Medium20'
+    Element[index].HasHover = 'No'
+    Element[index].BackColor = Root{}.ColorTheme.ColorGroups.Global.Transparent75
+    end
 
+    for i = 1,100 do
+        if (Table.elements[i] ~= nil) then
+            if (table.elements[i].type == 'CheckBox') then
+                if (Table.elements[i].state == 1) then
+                    CheckBoxState[i] = 1
+                else
+                    CheckBoxState[i] = 0
+                end
+            elseif(Table.elements[i].type == 'Subtitle') then
+                ActivateSubtitle(i)
+            end
+        else
+            break
+        end
+    end
+    
     -- definisce la dimensione del tasto Apply
     local buttonGrid = dlgFrame:Append('UILayoutGrid')
     buttonGrid.Columns = 1
@@ -118,18 +181,36 @@ function Main()
         else
             Caller.State = 1
         end
-        if (checkBox1.State == 0) then
-            CheckBoxState = 'Unclicked'
-        else
-            CheckBoxState = 'Clicked'
+        for i = 1, 100 do
+           if (Element[i] ~= nil) then
+                if (Element[i].type == 0) then
+                   CheckBoxState[i] = 0
+                elseif (Element[i].type == 1) then
+                    CheckBoxState[i] = 1
+                end
+            end
         end
     end
 
     signalTable.ButtonClicked = function (Caller)
         GetFocusDisplay().ScreenOverlay:ClearUIChildren()
-        Printf(CheckBoxState)
+        continue = true
     end
 
+    repeat
+    until continue
 
+    return CheckBoxState
 end
-return Main
+
+function main()
+    if (myStates == nil) then
+        myStates = {}
+    end
+   local myStates = CustomCheckList({Title = 'CDYDMI titolo', elemets = {{
+        type ='SubTitle', name = 'Sottotitolo', positionH = 1, positionV = 1},{
+        type = 'CheckBox', name = 'CheckBox 1', positionH = 2, positionV = 1, state = myStates[2], {
+        type = 'CheckBox', name = 'CheckBox 2', positionH = 3, positionV = 1, state = myStates[3]
+        }}})
+end
+return main
