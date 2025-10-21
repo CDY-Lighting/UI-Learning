@@ -186,9 +186,9 @@ function CustomCheckList(Table)
         end
         for i = 1, 100 do
            if (Element[i] ~= nil) then
-                if (Element[i].type == 0) then
+                if (Element[i].state == 0) then
                    CheckBoxState[i] = 0
-                elseif (Element[i].type == 1) then
+                elseif (Element[i].state == 1) then
                     CheckBoxState[i] = 1
                 end
             end
