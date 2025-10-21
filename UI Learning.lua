@@ -105,7 +105,7 @@ function CustomCheckList(Table)
     checkBoxGrid.Rows = DialogRows
     checkBoxGrid.Anchors = '0,0'
     checkBoxGrid.Margin = '0,5'
-    checkBoxGrid.BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
+    checkBoxGrid.BackColor = Root().ColorTheme.ColorGroups.Global.Running
 
     local function ActivateCheckox(index)
         Element[index] = checkBoxGrid:Append('CheckBox')
@@ -139,6 +139,7 @@ function CustomCheckList(Table)
       Element[index].Font = 'Medium20'
       Element[index].HasHover = 'No'
       Element[index].BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
+      Element[index].TextColor = Root().ColorTheme.ColorGroups.Global.Running
     end
 
     for i = 1,100 do
