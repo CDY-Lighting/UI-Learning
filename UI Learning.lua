@@ -23,7 +23,7 @@ function CustomCheckList(Table)
         if (Table.elements[i] ~= nil) then
             if (Table.elements[i].positionH == nil) then
                 ElementPositionH[i] = 0
-            elseif(Table.element[i].positionH ~= nil) then
+            elseif(Table.elements[i].positionH ~= nil) then
                 ElementPositionH[i] = Table.elements[i].positionH - 1
             end
 
@@ -118,7 +118,7 @@ function CustomCheckList(Table)
          right = ElementPositionH[index],
         }
         Element[index].TextalignmentH = 'Left'
-        Element[index].State = CheckboxState[index]
+        Element[index].State = CheckBoxState[index]
         Element[index].PluginComponent = myHandle
         Element[index].Clicked = 'CheckBoxClicked'
         Element[index].BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
@@ -144,11 +144,11 @@ function CustomCheckList(Table)
 
     for i = 1,100 do
         if (Table.elements[i] ~= nil) then
-            if (table.elements[i].type == 'Checkbox') then
+            if (Table.elements[i].type == 'Checkbox') then
                 if (Table.elements[i].state == 1) then
-                    CheckboxState[i] = 1
+                    CheckBoxState[i] = 1
                 else
-                    CheckboxState[i] = 0
+                    CheckBoxState[i] = 0
                 end
                 ActivateCheckox(i)
             elseif(Table.elements[i].type == 'Subtitle') then
