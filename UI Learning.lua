@@ -124,8 +124,8 @@ function CustomCheckList(Table)
         Element[index].BackColor = Root().ColorTheme.ColorGroups.Global.Transparent75
     end
     
+ -- definisce il sottotitolo
     local function ActivateSubtitle(index)
-    -- definisce il sottotitolo
       Element[index] = checkBoxGrid:Append('UIObject')
       Element[index].Text = Table.elements[index].name
       Element[index].ContentDriven = 'Yes'
@@ -202,7 +202,7 @@ function CustomCheckList(Table)
 
     repeat
     until continue
-
+     
     return CheckBoxState
 end
 
